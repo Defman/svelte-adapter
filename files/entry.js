@@ -84,7 +84,7 @@ async function read(request) {
  * @param {Record<string, string | string[]>} headers
  * @returns {Request}
  */
-function makeHeaders(headers, result = new Header()) {
+function makeHeaders(headers, result = new Headers()) {
 	for (const header in headers) {
 		const value = headers[header];
 		if (typeof value === "string") {
