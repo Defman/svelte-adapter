@@ -1,26 +1,36 @@
 {
-  "name": "@feathermc/svelte-adapter",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": {   
-    "type": "git",
-    "url": "git+ssh://git@github.com/Defman/svelte-adapter.git"
-  },
-  "author": "FeatherMC <dev@feathermc.org>",
-  "license": "MIT",
-  "dependencies": {
-    "@iarna/toml": "^2.2.5",
-    "esbuild": "^0.12.5"
-  },
-  "devDependencies": {
-    "@sveltejs/kit": "workspace:*"
-  },
-  "bugs": {
-    "url": "https://github.com/Defman/svelte-adapter/issues"
-  },
-  "homepage": "https://github.com/Defman/svelte-adapter#readme",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "description": ""
+    "name": "@feathermc/svelte-adapter",
+    "version": "0.1.0",
+    "type": "module",
+    "exports": {
+        ".": {
+            "import": "./index.js"
+        },
+        "./package.json": "./package.json"
+    },
+    "main": "index.js",
+    "files": [
+		"files"
+	],
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/Defman/svelte-adapter.git"
+    },
+    "author": "FeatherMC <dev@feathermc.org>",
+    "license": "MIT",
+    "dependencies": {
+        "@iarna/toml": "^2.2.5",
+        "esbuild": "^0.12.5"
+    },
+    "devDependencies": {
+        "@sveltejs/kit": "workspace:*"
+    },
+    "bugs": {
+        "url": "https://github.com/Defman/svelte-adapter/issues"
+    },
+    "homepage": "https://github.com/Defman/svelte-adapter#readme",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "description": ""
 }
