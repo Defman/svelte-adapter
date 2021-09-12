@@ -6,7 +6,6 @@ const baseHeaders = {
 	"X-Frame-Options": "DENY",
 	"Content-Security-Policy": "default-src 'self' 'unsafe-inline'",
 	"X-XSS-Protection": "1; mode=block",
-	"Cache-Control": "max-age=600",
 };
 
 const staticCacheControl = {
@@ -59,19 +58,19 @@ async function handle(event) {
 		if (rendered) {
 			return new Response(rendered.body, {
 				status: rendered.status,
-				headers: makeHeaders({ ...baseHeaders, ...rendered.headers })
+				headers: makeHeaders({ "Cache-Control": "max-age=600", ...baseHeaders, ...rendered.headers })
 			});
 		}
 	} catch (e) {
 		return new Response("Error rendering route:" + (e.message || e.toString()), {
-			status: 500, headers: makeHeaders({ ...baseHeaders, "Cache-Control": "no-cache" })
+			status: 500, headers: makeHeaders({ ...baseHeaders })
 		});
 	}
 
 	return new Response({
 		status: 404,
 		statusText: "Not Found",
-		headers: makeHeaders({ ...baseHeaders, "Cache-Control": "no-cache" })
+		headers: makeHeaders({ ...baseHeaders })
 	});
 }
 
