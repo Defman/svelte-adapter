@@ -4,12 +4,11 @@ import { getAssetFromKV, NotFoundError } from "@cloudflare/kv-asset-handler";
 const baseHeaders = {
 	"X-Content-Type-Options": "nosniff",
 	"X-Frame-Options": "DENY",
-	"Content-Security-Policy": [
-		"default-src 'self'",
-		"script-src 'unsafe-inline'", 
-		"style-src 'unsafe-inline'",
+	"Content-Security-Policy":
+		"default-src 'self'" +
+		"script-src 'unsafe-inline'" +
+		"style-src 'unsafe-inline'" +
 		"img-src 'self' data:",
-	],
 	"X-XSS-Protection": "1; mode=block",
 };
 
