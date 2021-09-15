@@ -5,9 +5,9 @@ const baseHeaders = {
 	"X-Content-Type-Options": "nosniff",
 	"X-Frame-Options": "DENY",
 	"Content-Security-Policy":
-		"default-src 'self';" +
-		"script-src 'unsafe-inline';" +
-		"style-src 'unsafe-inline';" +
+		"default-src 'self';" + 
+		"script-src 'self' 'unsafe-inline';" + 
+		"style-src 'self' 'unsafe-inline';" + 
 		"img-src 'self' data:;",
 	"X-XSS-Protection": "1; mode=block",
 };
