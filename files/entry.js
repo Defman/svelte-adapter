@@ -4,12 +4,17 @@ import { getAssetFromKV, NotFoundError } from "@cloudflare/kv-asset-handler";
 const baseHeaders = {
 	"X-Content-Type-Options": "nosniff",
 	"X-Frame-Options": "DENY",
-	"Content-Security-Policy": "default-src 'self' 'unsafe-inline'",
+	"Content-Security-Policy": [
+		"default-src 'self'",
+		"script-src 'unsafe-inline'", 
+		"style-src 'unsafe-inline'",
+		"img-src 'self' data:",
+	],
 	"X-XSS-Protection": "1; mode=block",
 };
 
 const staticCacheControl = {
-	browserTTL: 2 * 60 * 60 * 24,
+	browserTTL: 365 * 60 * 60 * 24,
 	edgeTTL: 2 * 60 * 60 * 24,
 	bypassCache: false,
 };
@@ -26,10 +31,11 @@ async function handle(event) {
 		try {
 			// TODO rather than attempting to get an asset,
 			// use the asset manifest to see if it exists
+			// We only want to cache files with hasehs for 365 days.
 			const response = await getAssetFromKV(event, { cacheControl: staticCacheControl });
-			const newResponse = new Response(response.body, { 
-				...response, 
-				headers: makeHeaders(baseHeaders, new Headers(response.headers)) 
+			const newResponse = new Response(response.body, {
+				...response,
+				headers: makeHeaders(baseHeaders, new Headers(response.headers))
 			});
 			return newResponse;
 		} catch (e) {
@@ -58,7 +64,7 @@ async function handle(event) {
 		if (rendered) {
 			return new Response(rendered.body, {
 				status: rendered.status,
-				headers: makeHeaders({ "Cache-Control": "max-age=600", ...baseHeaders, ...rendered.headers })
+				headers: makeHeaders({ ...baseHeaders, ...rendered.headers })
 			});
 		}
 	} catch (e) {
